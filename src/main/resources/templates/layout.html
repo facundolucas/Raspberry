@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8"/>
+	<title>Robot</title>
+	<link rel="stylesheet" th:href="@{/bootstrap-3.3.7-dist/css/bootstrap.min.css}" href="../../bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Rob0t!</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Raspberry!</h1>
+        <p>Prototipo robot raspberry.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          	<h2>Luces</h2>
+           	<button type="button" class="btn btn-primary">blue</button>
+           	<button type="button" class="btn btn-warning">yellow</button>
+           	<button type="button" class="btn btn-success">green</button>
+        </div>
+        <div class="col-md-4">
+          	<h2>Bocina</h2>
+          	<button type="button" class="btn btn-info">touch!</button>
+       </div>
+        <div class="col-md-4">
+          	<h2>Motor</h2>
+          	<button type="button" class="btn btn-success">start</button>
+           	<button type="button" class="btn btn-danger">stop</button>
+        </div>
+      </div>
+
+      <hr></hr>
+
+      <footer>
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>
+    </div> <!-- /container -->
+
+</body>
+
+</html>
