@@ -23,20 +23,71 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiPin;
+
+import com.pi4j.wiringpi.SoftTone;
+
 @Controller
 @RequestMapping("/")
 public class MessageController {
-
+	
 	@RequestMapping()
 	public ModelAndView list() {
 		
 		return new ModelAndView("layout", "messages", "");
 	}
 
+	@RequestMapping("/led")
+    public String led(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
+        
+		GpioController gpio = GpioFactory.getInstance();
+        GpioPinDigitalOutput ledPin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_05, "LED", PinState.HIGH);
+                
+        try {
+        	ledPin.low();
+			Thread.sleep(2*1000);
+			ledPin.high();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			gpio.shutdown();
+		}
+                
+		model.addAttribute("name", name);
+        
+		return "hello";
+    }
+	
 	@RequestMapping("/hello")
     public String hello(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
-        model.addAttribute("name", name);
-        return "hello";
+        
+		int PIEZO_PIN = 3;
+		
+		GpioController gpio = GpioFactory.getInstance();
+		
+		SoftTone.softToneCreate(PIEZO_PIN);
+		
+		int [] scale = { 659, 659, 0, 659, 0, 523, 659, 0, 784, 0, 0, 0, 392, 0, 0, 0, 523, 0, 0, 392, 0, 0, 330 };
+		
+		for (int i = 0; i < 23; ++i)
+        {
+			try {
+				SoftTone.softToneWrite(PIEZO_PIN, scale[i]);
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}			
+        }
+        
+		gpio.shutdown();
+		SoftTone.softToneStop(PIEZO_PIN);
+		
+		model.addAttribute("name", name);
+		return "hello";
     }
 
 }
