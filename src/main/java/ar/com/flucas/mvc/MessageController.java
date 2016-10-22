@@ -51,10 +51,13 @@ public class MessageController {
         	ledPin.low();
 			Thread.sleep(2*1000);
 			ledPin.high();
+			Thread.sleep(2*1000);
+			ledPin.low();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			gpio.shutdown();
+			gpio.unprovisionPin(ledPin);
 		}
                 
 		model.addAttribute("name", name);
